@@ -1,3 +1,4 @@
+import markdown
 from django.shortcuts import render
 
 from . import util
@@ -14,6 +15,12 @@ def index(request):
 
 
 def entry(request, title):
-    return render(request, "encyclopedia/entry.html", {
-        "title": util.get_entry(title)
-    })
+    if util.get_entry(title) == None:
+        return render(request, "encyclopedia/error.html", {
+            "title": title.capitalize()
+        })
+    else:
+        return render(request, "encyclopedia/entry.html", {
+            "entry": markdown.markdown(util.get_entry(title)),
+            "title": title.capitalize()
+        })
