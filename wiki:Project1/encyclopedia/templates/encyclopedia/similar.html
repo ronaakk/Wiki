@@ -1,0 +1,18 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+    {{title}}
+{% endblock title %}
+
+{% block body %}
+    <h1>Here are some pages you might be interested in:</h1>
+
+    <ul>
+        {% for item in similar %}
+            <li>
+                <a href= "{% url 'encyclopedia:entry' entry.title %}">{{item}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock body %}

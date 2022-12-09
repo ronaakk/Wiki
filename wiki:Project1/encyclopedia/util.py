@@ -35,3 +35,18 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+
+def get_similar(query):
+    """
+    Will return all encyclopedia entries that have the query as a substring
+    """
+    similar = []
+    for item in list_entries():
+        if query in item:
+            similar += item
+
+    if similar.isEmpty():
+        return None
+    else:
+        return similar

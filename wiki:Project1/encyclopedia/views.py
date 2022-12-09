@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from . import util
 
-# Write your views here.
+# Main page
 
 
 def index(request):
@@ -11,8 +11,8 @@ def index(request):
         "entries": util.list_entries()
     })
 
-# Entry page
 
+# Entry page
 
 def entry(request, title):
     if util.get_entry(title) == None:
@@ -23,4 +23,25 @@ def entry(request, title):
         return render(request, "encyclopedia/entry.html", {
             "entry": markdown.markdown(util.get_entry(title)),
             "title": title.capitalize()
+        })
+
+
+# Search a query
+
+def search(request, query):
+    if util.get_entry(query):
+        return render(request, "encyclopedia/entry.html", {
+            "entry": markdown.markdown(util.get_entry(query)),
+            "title": query.capitalize()
+        })
+    # TODO: Need to make similar.html
+    elif util.get_similar(query):
+        return render(request, "encyclopedia/similar.html", {
+            "entry": markdown.markdown(util.get_entry(query)),
+            "title": query.capitalize(),
+            "similar": util.get_similar(query)
+        })
+    else:
+        return render(request, "encyclopedia/error.html", {
+            "title": query.capitalize()
         })
