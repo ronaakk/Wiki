@@ -34,10 +34,10 @@ def search(request, query):
             "entry": markdown.markdown(util.get_entry(query)),
             "title": query.capitalize()
         })
-    # TODO: Need to make similar.html
-    elif util.get_similar(query):
+    elif len(util.get_similar(query)) > 0:
         return render(request, "encyclopedia/similar.html", {
-            "entry": markdown.markdown(util.get_entry(query)),
+            # Do I need to pass entry?
+            # "entry": markdown.markdown(util.get_entry(query)),
             "title": query.capitalize(),
             "similar": util.get_similar(query)
         })
