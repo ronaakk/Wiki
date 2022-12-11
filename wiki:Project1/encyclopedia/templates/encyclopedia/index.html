@@ -11,7 +11,7 @@
     Need to provide title as well, as entry function takes two args, and we access it by calling the function then the parameter
   {% endcomment %}
     <li> 
-      <a href= "{% url 'encyclopedia:entry' entry.title %}">{{entry}}</a>
+      <a href= "{% url 'encyclopedia:entry' entry %}">{{entry}}</a>
     </li>
   {% endfor %}
 </ul>

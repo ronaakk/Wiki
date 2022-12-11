@@ -3,9 +3,8 @@ from django.shortcuts import render
 
 from . import util
 
+
 # Main page
-
-
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -13,7 +12,6 @@ def index(request):
 
 
 # Entry page
-
 def entry(request, title):
     if util.get_entry(title) == None:
         return render(request, "encyclopedia/error.html", {
@@ -27,7 +25,7 @@ def entry(request, title):
 
 
 # Search a query
-
+# TODO: Make it a form and check whether it is valid that way (similar to lecture) then redirect to entry views
 def search(request, query):
     if util.get_entry(query):
         return render(request, "encyclopedia/entry.html", {
@@ -36,9 +34,7 @@ def search(request, query):
         })
     elif len(util.get_similar(query)) > 0:
         return render(request, "encyclopedia/similar.html", {
-            # Do I need to pass entry?
-            # "entry": markdown.markdown(util.get_entry(query)),
-            "title": query.capitalize(),
+            "title": query,
             "similar": util.get_similar(query)
         })
     else:
