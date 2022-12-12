@@ -7,6 +7,7 @@
 {% block body %}
 
    <h1>Your Requested page of '{{title}}' was not found ...</h1>
+   <h4>Check the <a href= "{% url 'encyclopedia:index' %}">Home</a> page for available encyclopedias.</h4>
 
 {% endblock body %}
 
