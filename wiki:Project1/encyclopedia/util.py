@@ -43,7 +43,7 @@ def get_similar(query):
     """
     similar = []
     for item in list_entries():
-        if (query.lower() in item) or (query.upper() in item):
+        if (query.lower() in item.lower()) or (query.upper() in item.upper()):
             similar += [item]
 
     return similar

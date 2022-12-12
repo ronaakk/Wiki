@@ -32,11 +32,11 @@ def entry(request, title):
 
 # Making a search form
 class SearchForm(forms.Form):
-    query = forms.CharField(label="Search Encyclopedia", min_length=1)
+    query = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Search Encyclopedia'}), min_length=1, label="")
 
 
 # Search a query
-# TODO: Make it a form and check whether it is valid that way (similar to lecture) then redirect to entry views
 def search(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
@@ -50,15 +50,15 @@ def search(request):
                 })
             elif len(util.get_similar(search)) > 0:
                 return render(request, "encyclopedia/similar.html", {
-                    "title": search.capitalize(),
+                    "title": search,
                     "similar": util.get_similar(search),
                     "search_form": SearchForm()
                 })
             else:
                 return render(request, "encyclopedia/error.html", {
-                    "title": search.capitalize(),
+                    "title": search,
                     "search_form": SearchForm()
                 })
 
     # If page is not valid or not posted, redirect to main page
-    # return HttpResponseRedirect(reverse("encyclopedia:index.html"))
+    return HttpResponseRedirect(reverse("encyclopedia:index.html"))
