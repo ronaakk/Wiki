@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>Here are some pages you might be interested in:</h1>
-    <h4>Search results are for: '{{title}}'</h4>
+    <p>Search results are for: '{{title}}'</p>
 
     <ul>
         {% for item in similar %}
@@ -15,5 +15,7 @@
             </li>
         {% endfor %}
     </ul>
+
+    <p>Not what you were looking for? Create a new page by clicking <a href="{% url 'encyclopedia:create' %}">here!</a></p>
 
 {% endblock body %}
