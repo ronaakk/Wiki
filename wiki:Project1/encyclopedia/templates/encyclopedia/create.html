@@ -11,6 +11,16 @@
     </a> 
     to style its pages, which is converted to HTML when entries are requested by a user.</p>
 
+    <!-- To display the error message -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li
+        {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
 <form action= "{% url 'encyclopedia:create' %}" method="POST">
     {% csrf_token %}
