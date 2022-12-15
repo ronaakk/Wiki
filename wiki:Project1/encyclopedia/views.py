@@ -78,7 +78,6 @@ class NewPageForm(forms.Form):
 
 
 def create(request):
-
     # When the link in the navbar is clicked, load the form
     if request.method == "GET":
         return render(request, "encyclopedia/create.html", {
@@ -118,4 +117,37 @@ def create(request):
             return render(request, "encyclopedia/create.html", {
                 "create_form": form,
                 "search_form": SearchForm()
+            })
+
+
+# Editing a Page
+
+class EditPageForm(forms.Form):
+    content = forms.CharField(label='', widget=forms.Textarea(attrs={
+        "placeholder": "Edit Page Content using Github Markdown"
+    }))
+    title = forms.CharField(label='', min_length=2, widget=forms.TextInput(attrs={
+        "placeholder": "Page Title"}))
+
+
+def edit(request, title):
+    if request.method == "GET":
+        content = util.get_entry(title)
+        return render(request, "encyclopedia/edit.html", {
+            "title": title,
+            "search_form": SearchForm(),
+            "create_form": NewPageForm(),
+            "edit_form": EditPageForm(initial={'content': content, 'title': title})
+        })
+
+    if request.method == "POST":
+        form = EditPageForm(request.POST)
+        if form.is_valid():
+            new_content = form.cleaned_data["content"]
+            new_title = form.cleaned_data["title"]
+            util.save_entry(new_title, new_content)
+            return render(request, "encyclopedia/entry.html", {
+                "title": new_title.capitalize(),
+                "search_form": SearchForm(),
+                "entry": markdown.markdown(util.get_entry(new_title))
             })
