@@ -72,11 +72,10 @@ def search(request):
 
 # Making a new page form
 class NewPageForm(forms.Form):
-    title = forms.CharField(label='', min_length=2, widget=forms.TextInput(attrs={
-        "placeholder": "Page Title"}))
-    content = forms.CharField(label='', widget=forms.Textarea(attrs={
-        "placeholder": "Enter Page Content using Github Markdown"
-    }))
+    title = forms.CharField(label='Enter Title', min_length=2, widget=forms.TextInput(
+        attrs={"class": "form-control", "style": "margin-bottom: 10px"}))
+    content = forms.CharField(label='Enter Content using Github Markdown', widget=forms.Textarea(
+        attrs={"class": "form-control", "style": "margin-bottom: 10px"}))
 
 
 def create(request):
@@ -125,11 +124,10 @@ def create(request):
 # Editing a Page
 
 class EditPageForm(forms.Form):
-    content = forms.CharField(label='', widget=forms.Textarea(attrs={
-        "placeholder": "Edit Page Content using Github Markdown"
-    }))
-    title = forms.CharField(label='', min_length=2, widget=forms.TextInput(attrs={
-        "placeholder": "Page Title"}))
+    title = forms.CharField(label='Enter Title', min_length=2, widget=forms.TextInput(
+        attrs={"class": "form-control", "style": "margin-bottom: 10px"}))
+    content = forms.CharField(label='Edit Content using Github Markdown', widget=forms.Textarea(
+        attrs={"class": "form-control", "style": "margin-bottom: 10px"}))
 
 
 def edit(request, title):
@@ -155,6 +153,7 @@ def edit(request, title):
             })
 
 # Random Page
+
 
 def get_random(request):
     # Will get the amount of entries currently present

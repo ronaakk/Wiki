@@ -12,21 +12,11 @@
         </a> 
         to style its pages, which is converted to HTML when entries are requested by a user.</p>
 
-
-    {% comment %} <!-- To display the success message -->
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li
-        {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }}
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %} {% endcomment %}
-
-    <form action= "{% url 'encyclopedia:edit' title %}" method="POST">
-        {% csrf_token %}
-        {{edit_form}}
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+    <div class="mb-3">
+        <form action= "{% url 'encyclopedia:edit' title %}" method="POST">
+            {% csrf_token %}
+            {{edit_form}}
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
 {% endblock body %} 

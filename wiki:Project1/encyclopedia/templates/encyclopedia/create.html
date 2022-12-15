@@ -22,11 +22,14 @@
     </ul>
     {% endif %}
 
-<form action= "{% url 'encyclopedia:create' %}" method="POST">
-    {% csrf_token %}
-    {{create_form}}
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+
+<div class="mb-3">
+    <form action= "{% url 'encyclopedia:create' %}" method="POST">
+        {% csrf_token %}
+        {{create_form}}
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
 
 
 {% endblock %}
