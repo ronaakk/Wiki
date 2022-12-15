@@ -1,3 +1,5 @@
+import random
+
 import markdown
 from django import forms
 from django.contrib import messages
@@ -151,3 +153,24 @@ def edit(request, title):
                 "search_form": SearchForm(),
                 "entry": markdown.markdown(util.get_entry(new_title))
             })
+
+# Random Page
+
+def get_random(request):
+    # Will get the amount of entries currently present
+    amount_of_entries = len(util.list_entries())
+
+    # Will pick a random number (-1 to prevent index out of range)
+    random_entry = random.randint(0, amount_of_entries - 1)
+
+    # Will get the entry name (ex. 'Python.md') based on the random number
+    chosen_entry = util.list_entries()[random_entry]
+
+    # Extracts title
+    chosen_title = util.extract_title(chosen_entry)
+
+    return render(request, "encyclopedia/entry.html", {
+        "entry": markdown.markdown(util.get_entry(chosen_title)),
+        "title": chosen_title.capitalize(),
+        "search_form": SearchForm()
+    })

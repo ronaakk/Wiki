@@ -12,6 +12,12 @@ def list_entries():
     return list(sorted(re.sub(r"\.md$", "", filename)
                 for filename in filenames if filename.endswith(".md")))
 
+def extract_title(entry):
+    """
+    Extracts the exact title from a given entry ex. "Python.md" => 'Python'
+    """
+    return re.sub(r"\.md$", "", entry)
+
 
 def save_entry(title, content):
     """
